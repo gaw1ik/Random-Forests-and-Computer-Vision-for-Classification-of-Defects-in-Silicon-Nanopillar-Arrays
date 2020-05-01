@@ -11,6 +11,7 @@ MORE CONTEXT:
 A high resolution RGB image of a wafer was recorded using an imaging system. The wafer, which is 100 mm in diameter, contains nearly 2000 1x1 mm square arrays of silicon nanopillars. Each nanopillar has a diameter of ~100 nm and 200 nm pitch. The arrays give off a vibrant green color due to a phenomenon called structural coloration (see [2] for a similar account). This green color signifies succesful fabrication of the arrays, and any deviation from this green color signifies some sort of fabrication error or defect. These defects can arise from a set of different root causes. In manufacturing, it is important to be able to detect defects and also classify them so that specific problems in the manufacturing facility can be addressed. In high volume manufacturing, this classification process would need to be done in an automated fashion, and thus computer vision methods are necessary.
 
 METHOD:
+
   PRE_PROCESSING:
   The RGB image is converted to a color-index image to reduce the size of the color space to just a handful of colors (red, black, gray, green, black, and faded green). These colors are by far the most popular colors on the wafer and are useful for the subsequent feature engineering.  
 
