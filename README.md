@@ -30,8 +30,8 @@ This approach utilizes a random forest classifier from the Scikit Learn Library.
 ## Results:
 
 <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%">!
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%">!
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%">
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_eed_predict.jpg" width="30%">!
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_nf_predict.jpg" width="30%">
 
 ## Outstanding Issues:
 1. Certain types of defects were either over- or under-represented in the training dataset, causing clear biases in the classification. Edge non-fill, for instance, has only a few instances on the entire wafer and happened to not be randomly sampled for the training dataset and therefore is not represented at all. Manually, devices impacted by edge non-fill can be forced to be a part of the training dataset, although the training will still suffer from having so few instances. On the other hand, edge etch delay seems over-represented. The training set could be forced to have a uniform amount of training examples of each type.
