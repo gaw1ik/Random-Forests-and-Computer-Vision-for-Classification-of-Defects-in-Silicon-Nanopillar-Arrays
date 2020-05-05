@@ -10,7 +10,7 @@ Silicon nanopillar arrays were of particular interest to me, and much of my work
 ### More Context:
 A high resolution RGB image of a wafer was recorded using an imaging system. The wafer, which is 100 mm in diameter, contains nearly 2000 1x1 mm square arrays of silicon nanopillars. Each nanopillar has a diameter of ~100 nm and 200 nm pitch. The arrays give off a vibrant green color due to a phenomenon called structural coloration (see [2] for a similar account). This green color signifies succesful fabrication of the arrays, and any deviation from this green color signifies some sort of fabrication error or defect. These defects can arise from a set of different root causes. In manufacturing, it is important to be able to detect defects and also classify them so that specific problems in the manufacturing facility can be addressed. In high volume manufacturing, this classification process would need to be done in an automated fashion, and thus computer vision methods are necessary.
 
-![test image](https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGB_new.jpg)
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGB_jpg.jpg" width="30%">
 
 ## Methods:
 
@@ -29,6 +29,8 @@ This approach utilizes a random forest classifier from the Scikit Learn Library.
 
 ## Results:
 
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%">!
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%">!
 <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%">
 
 ## Outstanding Issues:
