@@ -15,7 +15,7 @@ One of my primary focuses of my PhD was developing computer vision algorithms fo
 We have an RGB image of a wafer (taken using an imaging system I built) containing silicon nanopillar arrays. The wafer should look like the image below on the right side, but of course it actually looks like it does on the left side due to the presence of many defects. The iamge data needs to be processed in such a way as to automatically detect and classify defects that are present in the wafer. 
 
 <p float="left">
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGB_jpg.jpg" width="50%" title="RGB Image">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGB_jpg.jpg" width="50%" title="RGB Image"/>
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Ideal Wafer.jpg"  width="50%" title="Rendering of an Ideal Wafer"/>
 </p>
 
