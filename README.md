@@ -55,8 +55,24 @@ This approach utilizes the random forest classifier from the Scikit-Learn librar
 The training/evaluation set is formed by randomly sampling 200 devices from the ~2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
 
 ## Results:
+### Evaluation Score:
+Overall Precision: 73.0%
+Overall Recall   : 96.0%
 
-The images below show the classification predictions made by the model for each type of defect in all the devices in the wafer. The results are visualized by gray'ing out the entire image except for the device regions in which that particular defect was detected, which are given their RGB values. There are 7 defect types totals, but only 3 are shown here (left-to-right: particle voids, edge edge delay, and non-fill voids). 
+                  | Precision | Recall |
+| --------------- |:---------:| ------:|
+| particle void   | 100       |83      |
+| non-fill void   | 100       |58      |
+| etch delay      | 92        |86      |
+| edge etch delay | 100       |100     |
+| edge non etch   | NaN       |0       |
+| edge non-fill   | NaN       |NaN     |
+| scratch         | 50        |20      |
+
+### Test Results Visualization:
+The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
+
+(left-to-right: particle voids, edge edge delay, and non-fill voids) (hover to see title). 
 
 <p float="left">
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%" title="devices with classified particle defects"/> 
