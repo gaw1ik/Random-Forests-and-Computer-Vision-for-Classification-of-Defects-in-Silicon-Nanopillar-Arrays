@@ -19,7 +19,8 @@ I fabricated a wafer containing arrays of silicon nanopillars of which I recorde
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGB_jpg.jpg" height="300" title="RGB Image"/>
 </p>
 
-The RGB image is shown below. The wafer, which is 100 mm in diameter, contains nearly 2000 1x1 mm square arrays of silicon nanopillars. Each nanopillar in the arrays has a diameter of ~100 nm and 200 nm pitch. The arrays give off a vibrant green color due to structural coloration. This green color signifies succesful fabrication of the arrays, because only the target geometry would produce this color. The color is *really* sensitive to the exact geomety of the arrays, so any other geometry (what we call a defect) will produce a different color. These defects can arise from a set of different root causes in the manufacturing process including contimination, non-optimized fabrication processes, faulty tools, etc. For the most part, the defects on this wafer fall into one of seven categories:
+### What's on the wafer?
+The wafer, which is 100 mm in diameter, contains nearly 2000 1x1 mm square arrays of silicon nanopillars. Each nanopillar in the arrays has a diameter of ~100 nm and 200 nm pitch. The arrays give off a vibrant green color due to structural coloration. This green color signifies succesful fabrication of the arrays, because only the target geometry would produce this color. The color is *really* sensitive to the exact geomety of the arrays, so any other geometry (what we call a defect) will produce a different color. These defects can arise from a set of different root causes in the manufacturing process including contimination, non-optimized fabrication processes, faulty tools, etc. For the most part, the defects on this wafer fall into one of seven categories:
 1. particle void
 2. non-fill void
 3. etch delay
