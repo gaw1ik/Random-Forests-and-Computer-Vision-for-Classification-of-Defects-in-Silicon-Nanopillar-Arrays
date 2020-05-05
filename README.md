@@ -57,10 +57,11 @@ The training/evaluation set is formed by randomly sampling 200 devices from the 
 ## Results:
 ### Evaluation Score:
 Overall Precision: 73.0%
+
 Overall Recall   : 96.0%
 
-                  | Precision | Recall |
-| --------------- |:---------:| ------:|
+|                 | Precision | Recall |
+|:--------------- |:---------:| ------:|
 | particle void   | 100       |83      |
 | non-fill void   | 100       |58      |
 | etch delay      | 92        |86      |
