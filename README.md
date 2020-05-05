@@ -16,8 +16,11 @@ A high resolution RGB image of a wafer was recorded using an imaging system. The
 
 ### Pre-Processing:
   The RGB image is masked to isolate the 1x1 mm square device regions on the wafer using the "mask_sqrs.png". Then the RGB image is converted to a color-indexed (also could be called color-quantized) image to reduce the size of the color space to just a handful of colors (red, black, gray, green, faded green). These colors are by far the most popular colors on the wafer and are useful for the subsequent feature engineering.  
-  
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/mask_sqrs.png" width="30%" title="Squares Mask Image"> <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGBi_jpg.jpg"  width="30%" title="Indexed RGB Image">
+ 
+<p float="left">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/mask_sqrs.png" width="30%" title="Squares Mask Image"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGBi_jpg.jpg"  width="30%" title="Indexed RGB Image"/>
+</p>
 
 ### Feature Engineering:
 Most of the effort that went into this project went into feature engineering to provide relevant features to the classifier. Features include: 
@@ -31,11 +34,11 @@ This approach utilizes a random forest classifier from the Scikit Learn Library.
 
 ## Results:
 
-
-(<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg"   width="30%" title="devices with classified particle defects"> 
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"> 
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects">)
-
+<p float="left">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%" title="devices with classified particle defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
+</p>
 
 ## Outstanding Issues:
 1. Certain types of defects were either over- or under-represented in the training dataset, causing clear biases in the classification. Edge non-fill, for instance, has only a few instances on the entire wafer and happened to not be randomly sampled for the training dataset and therefore is not represented at all. Manually, devices impacted by edge non-fill can be forced to be a part of the training dataset, although the training will still suffer from having so few instances. On the other hand, edge etch delay seems over-represented. The training set could be forced to have a uniform amount of training examples of each type.
