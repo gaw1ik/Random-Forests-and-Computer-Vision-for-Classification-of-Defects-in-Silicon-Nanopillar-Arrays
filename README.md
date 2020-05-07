@@ -60,7 +60,7 @@ This approach utilizes the random forest classifier from the Scikit-Learn librar
 
 The training/evaluation set is formed by randomly sampling 100 devices from the ~2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
 
-## Results:
+## Results and Discussion:
 ### Evaluation Score:
 Overall Precision: 73.0%
 
@@ -75,6 +75,10 @@ Overall Recall   : 96.0%
 | edge non etch   | NaN       |0       |
 | edge non-fill   | NaN       |NaN     |
 | scratch         | 50        |20      |
+
+The high overall recall value suggests that the model is quite effective at minimizing false negatives. So, the model is generally good at classifying defects *when they are present*. The precision is somewhat lower, which is because the model has a slightly higher percentage of false positives. What this means is that the model is generally effective at correctly classifying defects when they are present, but also tends to classify defects when they are not present - in other words, "crying wolf".
+
+The number of the different defect classes vary dramatically, so the precision and recall for each defect type are listed...
 
 ### Test Results Visualization:
 The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
