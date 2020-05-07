@@ -58,7 +58,7 @@ The script "labeller_updatable.py" was used to manually label the training data.
 ### Model Training and Evaluation:
 This approach utilizes the random forest classifier from the Scikit-Learn library. The classification is multi-output, meaning that each device on the wafer can have any number of the 7 defect types. In fact, many of the devices are plagued by multiple types of defects which may or may not be overlapping each other, so the multi-output style classifier is most effective. Originally, I tried to distill the problem to a single-output problem, in which the most prominent defect type in each device would be the output, but this had undesirable results, including that it made the labelling process very subjective.
 
-The training/evaluation set is formed by randomly sampling 200 devices from the ~2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
+The training/evaluation set is formed by randomly sampling 100 devices from the ~2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
 
 ## Results:
 ### Evaluation Score:
