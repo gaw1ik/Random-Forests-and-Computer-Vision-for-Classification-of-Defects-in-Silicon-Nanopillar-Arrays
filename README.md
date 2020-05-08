@@ -61,20 +61,17 @@ This approach utilizes the random forest classifier from the Scikit-Learn librar
 The training/evaluation set is formed by randomly sampling 100 devices from the ~2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
 
 ## Results and Discussion:
-### Evaluation Score:
-Overall Precision: 73.0%
+### Evaluation Scores:
 
-Overall Recall   : 96.0%
-
-|                 | Precision | Recall |
-|:--------------- |:---------:| ------:|
-| particle void   | 100       |83      |
-| non-fill void   | 100       |58      |
-| etch delay      | 92        |86      |
-| edge etch delay | 100       |100     |
-| edge non etch   | NaN       |0       |
-| edge non-fill   | NaN       |NaN     |
-| scratch         | 50        |20      |
+|   Defect Type   | # of Training Examples | Precision | Recall |
+|:--------------- |:------------------:    | :--------:| :----: |
+| particle void   |     17                 | 100       | 83     |
+| non-fill void   |     42                 | 100       | 58     |
+| etch delay      |     40                 |  92       | 86     |
+| edge etch delay |     45                 | 100       |100     |
+| edge non etch   |      2                 | NaN       |  0     |
+| edge non-fill   |      0                 | NaN       |NaN     |
+| scratch         |     29                 |  50       | 20     |
 
 The high overall recall value suggests that the model is quite effective at minimizing false negatives. So, the model is generally good at classifying defects *when they are present*. The precision is somewhat lower, which is because the model has a slightly higher percentage of false positives. What this means is that the model is generally effective at correctly classifying defects when they are present, but also tends to classify defects when they are not present - in other words, "crying wolf".
 
