@@ -92,7 +92,7 @@ The images below show the classification predictions made by the model for 3 of 
 1. Certain types of defects were either over- or under-represented in the training dataset, causing clear biases in the classification. Edge non-fill, for instance, has only a few instances on the entire wafer and happened to not be randomly sampled for the training dataset and therefore is not represented at all. Manually, devices impacted by edge non-fill can be forced to be a part of the training dataset, although the training will still suffer from having so few instances. On the other hand, edge etch delay seems over-represented. The training set could be forced to have a uniform amount of training examples of each type.
 2. 
 
-### Future Work:
+## Future Work:
 The primary goal of this project wasn't to make a perfect classifier, it was to teach myself machine learning. I think the best way to continue learning is to move on to a new project instead of grinding for better model performance. So, I'm likely going to leave this project where it currently stands. That being said, I have thought about what could be done to improve this classifier, and I would like to discuss that here.
 
 The first thing I would do would be...
