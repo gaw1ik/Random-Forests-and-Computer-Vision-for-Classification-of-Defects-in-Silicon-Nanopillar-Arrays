@@ -34,21 +34,23 @@ Understanding these defect types requires knowledge of various nanofabrication p
 ## Methods:
 
 ### Pre-Processing:
-  The RGB image is converted to a color-indexed (also could be called color-quantized) image to reduce the size of the color space to just a handful of colors (red, black, gray, green, faded green). These colors are by far the most popular colors on the wafer and are useful for the subsequent feature engineering.
+  First, the RGB image is masked to isolate the 1x1 mm square device regions on the wafer using the image mask "mask_sqrs.png". 
+  
+  The RGB device images are then color-indexed (or color quantized) to reduce the size of the color space to just a handful of colors (red, black, gray, green, faded green). These colors are chosen ad hoc based on the fact that they are observed to be the most popular colors on the wafer and different colors are associated with different defect types. As mentioned, when the pillars are fabricated succesfully, they produce a particular shade of green. The color green corresponds to the yield condition for the devices and is defined specifically as HSV colors meeting the conditions 60<H<115, S>140, V>140. The device images are converted to the HSV color space for this operation. The color black is then defined as V<75 and gray as V>75, S<50. The remaining pixels are then quantized to either red or faded green depending on which color centroid they are closet to where red centroid = (120,119,55) and faded green centroid = (50,90,50).
  
 <p float="left">
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/mask_sqrs.png" width="30%" title="Squares Mask Image"/>
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGBi_jpg.jpg"  width="30%" title="Indexed RGB Image"/>
 </p>
 
-Next, the indexed RGB image is masked to isolate the 1x1 mm square device regions on the wafer using the image mask "mask_sqrs.png". Each image of each device is then considered as an example in this machine learning problem. The devices and their associated information (pixel coordinates, bounding box, etc.) are arranged in a pandas dataframe which is utilized for the machine learning.
+Each image of each defective device is then considered as an example in this machine learning problem. The devices and their associated information (pixel coordinates, bounding box, etc.) are arranged in a pandas dataframe which is utilized for the machine learning.
 
 ### Feature Engineering:
 Most of the effort that went into this project went into feature engineering to provide relevant features to the classifier. Features include: 
 * the fraction of device that is defective
-* the fractions of each device that are of each of one of the following indexed colors (red, black, gray, green, faded green)
+* the fractions of each device that are of each of one of the following indexed colors (black, gray, red, faded green)
 * if the device is at an edge of the pattern area (a boolean feature 0/1)
-* the fraction of the perimeter pixels of gray areas that touch each of the following colors (black, faded green, green)
+* the fraction of the perimeter pixels of gray areas that touch each of the following colors (black, green, red, faded green)
 
 ### Labelling the Training Data:
 The script "labeller_updatable.py" was used to manually label the training data. This script (at least) works in the IDE Spyder and basically shows the image of a device from the training set one at a time and asks for input as to what defects are present in the device. The input options are abbreviations I came up with for the various defect types ('p','nf','ed','eed','ene','enf','s'). I would enter a comma-separated list of these abbreviations and press enter. The script allows for 'quit' to be entered as well, which allowed me to end the program and take a break from labelling. It would save the current progress and I could then come back later and continue labelling. Hence, the *updatable* aspect of the labeller. The label lists are then automatically parsed and transformed into a sparse boolean array (one-hot encoding).
@@ -58,7 +60,9 @@ The script "labeller_updatable.py" was used to manually label the training data.
 ### Model Training and Evaluation:
 This approach utilizes the random forest classifier from the Scikit-Learn library. The classification is multi-output, meaning that each device on the wafer can have any number of the 7 defect types. In fact, many of the devices are plagued by multiple types of defects which may or may not be overlapping each other, so the multi-output style classifier is most effective. Originally, I tried to distill the problem to a single-output problem, in which the most prominent defect type in each device would be the output, but this had undesirable results, including that it made the labelling process very subjective.
 
-The training/evaluation set is formed by randomly sampling 200 devices from the nearly 2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/gray_train.jpg" width="30%" title="training dataset"/> 
+
+The training/evaluation set is formed by randomly sampling 200 devices from the 734 defective devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is fit to the training data and then used to make predictions on the evaluation dataset. The accuracies of those predictions are then scored.
 
 ## Results and Discussion:
 ### Evaluation Scores:
@@ -72,10 +76,6 @@ The training/evaluation set is formed by randomly sampling 200 devices from the 
 | edge non etch   |      2                 | 100       |  100   |
 | edge non-fill   |      0                 | NaN       |0       |
 | scratch         |     29                 |  54       | 47     |
-
-The high overall recall value suggests that the model is quite effective at minimizing false negatives. So, the model is generally good at classifying defects *when they are present*. The precision is somewhat lower, which is because the model has a slightly higher percentage of false positives. What this means is that the model is generally effective at correctly classifying defects when they are present, but also tends to classify defects when they are not present - in other words, "crying wolf".
-
-The number of the different defect classes vary dramatically, so the precision and recall for each defect type are listed...
 
 ### Test Results Visualization:
 The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
