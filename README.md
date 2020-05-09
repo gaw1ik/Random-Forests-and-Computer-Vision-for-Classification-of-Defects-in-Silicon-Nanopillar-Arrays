@@ -58,20 +58,20 @@ The script "labeller_updatable.py" was used to manually label the training data.
 ### Model Training and Evaluation:
 This approach utilizes the random forest classifier from the Scikit-Learn library. The classification is multi-output, meaning that each device on the wafer can have any number of the 7 defect types. In fact, many of the devices are plagued by multiple types of defects which may or may not be overlapping each other, so the multi-output style classifier is most effective. Originally, I tried to distill the problem to a single-output problem, in which the most prominent defect type in each device would be the output, but this had undesirable results, including that it made the labelling process very subjective.
 
-The training/evaluation set is formed by randomly sampling 100 devices from the ~2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
+The training/evaluation set is formed by randomly sampling 200 devices from the nearly 2000 devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is trained on the training set and then evaluated on the evalution set (go figure). 
 
 ## Results and Discussion:
 ### Evaluation Scores:
 
 |   Defect Type   | # of Training Examples | Precision | Recall |
 |:--------------- |:------------------:    | :--------:| :----: |
-| particle void   |     17                 | 100       | 83     |
-| non-fill void   |     42                 | 100       | 58     |
-| etch delay      |     40                 |  92       | 86     |
-| edge etch delay |     45                 | 100       |100     |
-| edge non etch   |      2                 | NaN       |  0     |
-| edge non-fill   |      0                 | NaN       |NaN     |
-| scratch         |     29                 |  50       | 20     |
+| particle void   |     17                 | 100       | 62     |
+| non-fill void   |     42                 | 81        | 79     |
+| etch delay      |     40                 |  79       | 88     |
+| edge etch delay |     45                 | 96        |96      |
+| edge non etch   |      2                 | 100       |  100   |
+| edge non-fill   |      0                 | NaN       |0       |
+| scratch         |     29                 |  54       | 47     |
 
 The high overall recall value suggests that the model is quite effective at minimizing false negatives. So, the model is generally good at classifying defects *when they are present*. The precision is somewhat lower, which is because the model has a slightly higher percentage of false positives. What this means is that the model is generally effective at correctly classifying defects when they are present, but also tends to classify defects when they are not present - in other words, "crying wolf".
 
