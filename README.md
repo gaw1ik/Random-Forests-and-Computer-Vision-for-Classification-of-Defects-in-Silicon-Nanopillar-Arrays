@@ -69,13 +69,13 @@ The training/evaluation set is formed by randomly sampling 200 devices from the 
 
 |   Defect Type   | # of Training Examples | Precision | Recall |
 |:--------------- |:------------------:    | :--------:| :----: |
-| particle void   |     17                 | 100       | 62     |
-| non-fill void   |     42                 | 81        | 79     |
-| etch delay      |     40                 |  79       | 88     |
-| edge etch delay |     45                 | 96        |96      |
-| edge non etch   |      2                 | 100       |  100   |
-| edge non-fill   |      0                 | NaN       |0       |
-| scratch         |     29                 |  54       | 47     |
+| particle void   |     36                 | 100       | 62     |
+| non-fill void   |     87                 | 81        | 79     |
+| etch delay      |     72                 |  79       | 88     |
+| edge etch delay |     87                 | 96        |96      |
+| edge non etch   |      8                 | 100       |  100   |
+| edge non-fill   |      1                 | NaN       |0       |
+| scratch         |     44                 |  54       | 47     |
 
 ### Test Results Visualization:
 The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
