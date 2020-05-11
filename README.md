@@ -7,7 +7,7 @@ During my time at UT Austin as a PhD student, I researched metrology solutions f
 
 Silicon nanopillar arrays were of particular interest to me, and much of my work was centered around them. They have many interesting applications, although what really got me hooked on them initially was the fact that they create these really amazing colors (see images below) due to a phenomenon called structural coloration (see my publication [reference 2] for more info). The colors arise because of the nanoscale size and shape of the pillars, and subtle changes in the geometry - changes on the order of a few nanometers, for instance - can completely change the color that they exhibit. As it turns out, this is an extremely useful characteristic from a metrology perspective, because characterizing this color can give insight into what's happening on the nanoscale, which otherwise can't be seen without the use of tools like electron micrscopes. Electron microscopes are extremely slow, and so being able to do an optical characterization that can image a full wafer *in seconds* is highly preferred. 
 
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Wafers.jfif" title="Images of Silicon Nanopillar Array Wafers">
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Wafers.jfif" title="Images of Silicon Nanopillar Array Wafers">
 
 One of my primary focuses of my PhD was developing computer vision algorithms for detecting and classifying defects in these Si nanopillar arrays. I actually published a paper on this work [1] which shows how more-traditional image processing approaches can be used. This work was fairly rudimentary from a computer vision perspective, and wouldn't have been accepted to a computer vision journal, but in the context of metrology for silicon nanopillar manufacturing, the work offers insight at the interface of computer vision and the manfuacturing itself and demonstrates beginnings for more advanced algorithms. After I graduated, I wanted to re-explore this problem in the context of machine learning based computer vision, and thus this project was born.
 
@@ -15,8 +15,8 @@ One of my primary focuses of my PhD was developing computer vision algorithms fo
 I fabricated a wafer containing arrays of silicon nanopillars of which I recorded an RGB image of using my imaging system. If fabrication was 100% succesful, the wafer would look like the left side of the image below. The pattern is only intended for certain areas on the wafer. Of course, the wafer I fabricated (shown on the right) is imperfect - actually, it is plagued by many defects. This image needs to be processed in such a way as to automatically detect and classify the defects that are present in the wafer. 
 
 <p float="left">
-    <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Ideal Wafer.jpg" height="300" title="Rendering of an Ideal Wafer"/>
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGB_jpg.jpg" height="300" title="RGB Image"/>
+    <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Ideal Wafer.jpg" height="300" title="Rendering of an Ideal Wafer"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/RGB.jpg" height="300" title="RGB Image"/>
 </p>
 
 ### What's on the wafer?
@@ -39,8 +39,8 @@ Understanding these defect types requires knowledge of various nanofabrication p
   The RGB device images are then color-indexed (or color quantized) to reduce the size of the color space to just a handful of colors (red, black, gray, green, faded green). These colors are chosen ad hoc based on the fact that they are observed to be the most popular colors on the wafer and different colors are associated with different defect types. As mentioned, when the pillars are fabricated succesfully, they produce a particular shade of green. The color green corresponds to the yield condition for the devices and is defined specifically as HSV colors meeting the conditions 60<H<115, S>140, V>140. The device images are converted to the HSV color space for this operation. The color black is then defined as V<75 and gray as V>75, S<50. The remaining pixels are then quantized to either red or faded green depending on which color centroid they are closet to where red centroid = (120,119,55) and faded green centroid = (50,90,50).
  
 <p float="left">
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/mask_sqrs.png" width="30%" title="Squares Mask Image"/>
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/RGBi_jpg.jpg"  width="30%" title="Indexed RGB Image"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/mask_sqrs.png" width="30%" title="Squares Mask Image"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/RGBi.png"  width="30%" title="Indexed RGB Image"/>
 </p>
 
 Each image of each defective device is then considered as an example in this machine learning problem. The devices and their associated information (pixel coordinates, bounding box, etc.) are arranged in a pandas dataframe which is utilized for the machine learning.
@@ -60,7 +60,7 @@ The script "labeller_updatable.py" was used to manually label the training data.
 ### Model Training and Evaluation:
 This approach utilizes the random forest classifier from the Scikit-Learn library. The classification is multi-output, meaning that each device on the wafer can have any number of the 7 defect types. In fact, many of the devices are plagued by multiple types of defects which may or may not be overlapping each other, so the multi-output style classifier is most effective. Originally, I tried to distill the problem to a single-output problem, in which the most prominent defect type in each device would be the output, but this had undesirable results, including that it made the labelling process very subjective.
 
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/gray_train.jpg" width="30%" title="training dataset"/> 
+<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/gray_train.jpg" width="30%" title="training dataset"/> 
 
 The training/evaluation set is formed by randomly sampling 200 devices from the 734 defective devices on the wafer. The training and evaulation sets are then split 67% and 33% (respectively) at random. The classifier is fit to the training data and then used to make predictions on the evaluation dataset. The accuracies of those predictions are then scored.
 
@@ -83,9 +83,9 @@ The images below show the classification predictions made by the model for 3 of 
 (left-to-right: particle voids, edge edge delay, and non-fill voids) (hover to see title). 
 
 <p float="left">
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_p_predict.jpg" width="30%" title="devices with classified particle defects"/> 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_p_predict.jpg" width="30%" title="devices with classified particle defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
 </p>
 
 ## Outstanding Issues:
