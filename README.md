@@ -35,8 +35,11 @@ Each of these defects manifests on the wafer with a different appearance - with 
 
 ## Methods:
 
+### Quick note on the structuring of the repo:
+The main folder contains the code files, the saved classifier model, and four sub-folders: "Data\", "Figures\", "Images\", and "Raw_Data\". "Data\" contains the various DataFrames, "Figures\" contains figures that were created specifically for use in the README, and "Images\" contains images that were created as part of the image processing. The "Raw_Data\" folder is meant to containg the raw dataset (a large RGB bitmap image) which is not included here, partly because the raw data itself was too large to be uplaoded. Nonetheless, I've included the folder to dictate the structure as the Pre-Processing code calls for "Raw_Data\RGB.bmp".
+
 ### Pre-Processing:
-  The code "Pre-Processing.py" is used to pre-process the raw RGB data to prepare it for the subsequent computer vision tasks. First, the RGB image is masked to isolate the 1x1 mm square device regions on the wafer using the image mask "mask_sqrs.png". The RGB device images are then color-indexed (or color quantized) to reduce the size of the color space to just a handful of colors (red, black, si (silicon-colored), green, faded green). These colors are chosen ad hoc based on the fact that they are observed to be the most popular colors on the wafer and different colors are associated with different defect types. As mentioned, when the pillars are fabricated succesfully, they produce a particular shade of green. Thus, the color green corresponds to the so-called "yield" condition for the devices and is defined specifically as HSV colors meeting the conditions 60<H<115, S>140, V>140. The device images are converted to the HSV color space for this operation. The color black is then defined as V<75 and si (silicon) as V>75 & S<50. The remaining pixels are then quantized to either red or faded green depending on which color centroid they are closet to (in terms of euclidean distance) where red centroid = (120,119,55) and faded green centroid = (50,90,50).
+The code "Pre-Processing.py" is used to pre-process the raw RGB data to prepare it for the subsequent computer vision tasks. First, the RGB image is masked to isolate the 1x1 mm square device regions on the wafer using the image mask "mask_sqrs.png". The RGB device images are then color-indexed (or color quantized) to reduce the size of the color space to just a handful of colors (red, black, si (silicon-colored), green, faded green). These colors are chosen ad hoc based on the fact that they are observed to be the most popular colors on the wafer and different colors are associated with different defect types. As mentioned, when the pillars are fabricated succesfully, they produce a particular shade of green. Thus, the color green corresponds to the so-called "yield" condition for the devices and is defined specifically as HSV colors meeting the conditions 60<H<115, S>140, V>140. The device images are converted to the HSV color space for this operation. The color black is then defined as V<75 and si (silicon) as V>75 & S<50. The remaining pixels are then quantized to either red or faded green depending on which color centroid they are closet to (in terms of euclidean distance) where red centroid = (120,119,55) and faded green centroid = (50,90,50).
  
 <p float="left">
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/mask_sqrs.png" width="30%" title="Squares Mask Image"/>
@@ -95,7 +98,7 @@ The images below show the classification predictions made by the model for 3 of 
 ## Future Work:
 The primary goal of this project wasn't to make a perfect classifier, it was to teach myself machine learning. I think the best way to continue learning is to move on to a new project instead of grinding for better model performance. So, I'm likely going to leave this project where it currently stands. That being said, I have thought about what could be done to improve this classifier, and I would like to discuss that here.
 
-The first thing I would do would be...
+(Need to add discussion).
 
 ## References:
 [1] ASME Paper.
