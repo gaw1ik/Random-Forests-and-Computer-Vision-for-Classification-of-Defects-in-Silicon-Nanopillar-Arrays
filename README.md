@@ -45,7 +45,7 @@ Each of these defects manifests on the wafer with a different appearance - with 
 
 Each image of each device is then considered as an example in this problem. For defect classification, only devices containing a significant percentage of defectivity (pixels with a color other than green) are considered. The threshold for considering a device defective is arbitraily set at 10% and the Devices_Info dataframe is filtered for fraction of defectivity being greater than or equal to 10%. This creates a new DataFrame (Data\Devices_Dfct_Info) containing only the defective devices and their information (square row, square column, bounding box, and pixel coordinates) as shown in the image below.
 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Devices_Dfct_Info screenshot.jpg"  width="300" title="Screenshot of Devices_Info DataFrame">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Devices_Dfct_Info screenshot.JPG"  width="500" title="Screenshot of Devices_Info DataFrame">
 
 ### Feature Engineering:
 Various features are calculated for each defective device to be used as input features to the machine learning classifier. Features include: 
@@ -56,7 +56,7 @@ Various features are calculated for each defective device to be used as input fe
 
 This forms a new DataFrame (Data\Devices_Dfct_Features) as shown below.
 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Devices_Dfct_Features screenshot.jpg"  width="300" title="Screenshot of Devices_Info DataFrame">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Devices_Dfct_Features screenshot.JPG"  width="500" title="Screenshot of Devices_Info DataFrame">
 
 ### Labelling the Training Data:
 200 of the defective devices are randomly sampled forming Data\Devices_Training_Info and Data\Devices_Training_Features. Next the training examples must be labeled which is done with the script "labeller_updatable.py". This script (at least) works in the IDE Spyder by displaying the image of a device from the training set one at a time and asking for input as to what defects are present in the device. The input options are abbreviations I came up with for the various defect types ('p','nf','ed','eed','ene','enf','s'). I would enter a comma-separated list of these abbreviations for each device. The script allows for 'quit' to be entered as well, which allowed me to end the program and take a break from the rather time-consuming labeling process. It would save the current progress and I could then come back later and continue labelling. Hence, the *updatable* aspect of the labeller. The label lists are then automatically parsed and transformed into a sparse boolean array (one-hot encoding).
