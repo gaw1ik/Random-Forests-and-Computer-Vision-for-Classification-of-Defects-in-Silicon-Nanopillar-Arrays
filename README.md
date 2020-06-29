@@ -5,11 +5,11 @@ This project centers around development of a machine learning computer vision ap
 ## Project Background:
 During my time at UT Austin as a PhD student, I researched metrology solutions for nano-manufacturing. My work centered around using spectral imaging system to charactize devices that we called "large area nanostructure arrays" which includes things like nanopillar arrays, grating structures, and mesh structures which have been fabricated on flat large area substrates such as silicon wafers, glass sheets, roll-to-roll webs, etc. People are interested in making these kinds of structures because they have many important applications including ones in displays, memory storage devices, electronics, etc. In order to manufacture these kinds of devices succesfully, metrology systems (systems that can measure and characterize these devices) need to be in place to measure their quality as they are being made. It's important to have metrology so that defects can be detected as they appear in the devices. Furthermore, the defects can to be *classified* so that the manufacturing facility knows specifically what went wrong and people can hopefully fix things so that devices can continue to be made correctly. 
 
-Silicon nanopillar arrays were of particular interest to me, and much of my work was centered around them. They have many interesting applications, although what really got me hooked on them initially was the fact that they create these really amazing colors (see images below) due to a phenomenon called structural coloration (see my publication [reference 2] for more info). The colors arise because of the nanoscale size and shape of the pillars, and subtle changes in the geometry - changes on the order of a few nanometers, for instance - can completely change the color that they exhibit. As it turns out, this is an extremely useful characteristic from a metrology perspective, because characterizing this color can give insight into what's happening on the nanoscale, which otherwise can't be seen without the use of tools like electron micrscopes. Electron microscopes are extremely slow, and so being able to do an optical characterization that can image a full wafer *in seconds* is highly preferred. 
+Silicon nanopillar arrays were of particular interest to me, and much of my work was centered around them. They have many interesting applications, although what really got me hooked on them initially was the fact that they create these really amazing colors (see images below) due to a phenomenon called structural coloration (see my publication [reference 1] for more info). The colors arise because of the nanoscale size and shape of the pillars, and subtle changes in the geometry - changes on the order of a few nanometers, for instance - can completely change the color that they exhibit. As it turns out, this is an extremely useful characteristic from a metrology perspective, because characterizing this color can give insight into what's happening on the nanoscale, which otherwise can't be seen without the use of tools like electron micrscopes. Electron microscopes are extremely slow, and so being able to do an optical characterization that can image a full wafer *in seconds* is highly preferred. 
 
 <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Wafers.jfif" width="500" title="Images of Silicon Nanopillar Array Wafers">
 
-One of my primary focuses of my PhD was developing computer vision algorithms for detecting and classifying defects in these Si nanopillar arrays. I've actually submitted a paper on this work [1] which shows how more-traditional image processing approaches can be used. This work was fairly rudimentary from a computer vision perspective, and wouldn't have been accepted to a computer vision journal, but in the context of metrology for silicon nanopillar manufacturing, the work offers insight at the interface of computer vision and the manfuacturing itself and demonstrates beginnings for more advanced algorithms. After I graduated, I wanted to re-explore this problem in the context of machine learning based computer vision, and thus this project was born.
+One of my primary focuses of my PhD was developing computer vision algorithms for detecting and classifying defects in these Si nanopillar arrays. I've actually submitted a paper on this work which shows how more-traditional image processing approaches can be used. This work was fairly rudimentary from a computer vision perspective, and wouldn't have been accepted to a computer vision journal, but in the context of metrology for silicon nanopillar manufacturing, the work offers insight at the interface of computer vision and the manfuacturing itself and demonstrates beginnings for more advanced algorithms. After I graduated, I wanted to re-explore this problem in the context of machine learning based computer vision, and thus this project was born.
 
 ## Description of the Problem:
 A wafer containing arrays of silicon nanopillars has been fabricated of which I recorded an RGB image of using an imaging system. If fabrication was 100% succesful, the wafer would look like what the left side of the image below shows. Note that the pattern is only intended for certain areas on the wafer which is why only some areas are green. Of course, the wafer I fabricated (shown on the right) is imperfect - actually, it is plagued by many defects. These defects need to be automatically detected and classified, and since they are readily visible in the image data, a computer vision approach makes sense. 
@@ -71,20 +71,7 @@ The machine learning is done using the random forest classifier from the Scikit-
 
 The training and evaulation sets are split 67% and 33% (respectively) at random. The classifier is fit to the training data and then used to make predictions on the evaluation dataset. The accuracies of those predictions for each defect type are then scored in terms of precision and recall.
 
-## Results and Discussion:
-### Evaluation Scores:
-
-|   Defect Type   | # of Training Examples | Precision | Recall |
-|:--------------- |:------------------:    | :--------:| :----: |
-| particle void   |     36                 | 100       | 62     |
-| non-fill void   |     87                 | 81        | 79     |
-| etch delay      |     72                 |  79       | 88     |
-| edge etch delay |     87                 | 96        |96      |
-| edge non etch   |      8                 | 100       |  100   |
-| edge non-fill   |      1                 | NaN       |0       |
-| scratch         |     44                 |  54       | 47     |
-
-### Test Results Visualization:
+## Test Results Visualization:
 The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
 
 (left-to-right: particle voids, edge edge delay, and non-fill voids) (hover to see title). 
@@ -101,6 +88,4 @@ The primary goal of this project wasn't to make a perfect classifier, it was to 
 (Need to add discussion).
 
 ## References:
-[1] ASME Paper.
-
-[2] https://www.osapublishing.org/oe/abstract.cfm?uri=oe-26-23-30952
+[1] https://www.osapublishing.org/oe/abstract.cfm?uri=oe-26-23-30952
