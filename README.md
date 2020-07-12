@@ -1,4 +1,4 @@
-# Computer Vision for Classification of Defects in Silicon Nanopillar Arrays
+# Random Forests and Image Processing for Classification of Defects in Silicon Nanopillar Arrays
 ## Abstract:
 This project centers around development of a machine learning computer vision approach for classification of defects in arrays of silicon nanopillars that have been fabricated on a silicon wafer. This work is related to my PhD research.
 
