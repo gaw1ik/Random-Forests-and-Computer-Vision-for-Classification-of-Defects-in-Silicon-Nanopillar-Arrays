@@ -74,7 +74,7 @@ The training and evaulation sets are split 67% and 33% (respectively) at random.
 ## Test Results Visualization:
 The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
 
-(left-to-right: particle voids, edge edge delay, and non-fill voids) (hover to see title). 
+(hover to see titles). 
 
 <p float="left">
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ene_predict.jpg" width="30%" title="devices with classified edge non etch defects"/> 
