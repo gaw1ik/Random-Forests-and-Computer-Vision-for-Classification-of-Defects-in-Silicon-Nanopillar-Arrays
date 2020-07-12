@@ -1,6 +1,6 @@
 # Random Forests and Image Processing for Classification of Defects in Silicon Nanopillar Arrays
-## Abstract:
-This project centers around development of a machine learning computer vision approach for classification of defects in arrays of silicon nanopillars that have been fabricated on a silicon wafer. This work is related to my PhD research.
+## Description:
+This project centers around the development of a method for classifying defects on a silicon wafer containing nanopillar arrays using random forests and image processing techniques.
 
 ## Project Background:
 During my time at UT Austin as a PhD student, I researched metrology solutions for nano-manufacturing. My work centered around using spectral imaging system to charactize devices that we called "large area nanostructure arrays" which includes things like nanopillar arrays, grating structures, and mesh structures which have been fabricated on flat large area substrates such as silicon wafers, glass sheets, roll-to-roll webs, etc. People are interested in making these kinds of structures because they have many important applications including ones in displays, memory storage devices, electronics, etc. In order to manufacture these kinds of devices succesfully, metrology systems (systems that can measure and characterize these devices) need to be in place to measure their quality as they are being made. It's important to have metrology so that defects can be detected as they appear in the devices. Furthermore, the defects can to be *classified* so that the manufacturing facility knows specifically what went wrong and people can hopefully fix things so that devices can continue to be made correctly. 
@@ -82,10 +82,42 @@ The images below show the classification predictions made by the model for 3 of 
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
 </p>
 
-## Future Work:
-The primary goal of this project wasn't to make a perfect classifier, it was to teach myself machine learning. I think the best way to continue learning is to move on to a new project instead of grinding for better model performance. So, I'm likely going to leave this project where it currently stands. That being said, I have thought about what could be done to improve this classifier, and I would like to discuss that here.
+### Evaluation Scores:
 
-(Need to add discussion).
+|   Defect Type   | # of Training Examples | Precision | Recall |
+|:--------------- |:------------------:    | :--------:| :----: |
+| edge non etch   |      8                 | 100       |  100   |
+| edge etch delay |     87                 | 96        |96      |
+| particle void   |     36                 | 100       | 62     |
+| non-fill void   |     87                 | 81        | 79     |
+| etch delay      |     72                 |  79       | 88     |
+| scratch         |     44                 |  54       | 47     |
+| edge non-fill   |      1                 | NaN       |0       |
+
+### Discussion of Performance:
+#### Edge Non Etch
+The approach handles a few of the defect categories fairly well. Scores in precision and recall for edge non-etch are perfect. This is likely to instill an overly optimistic level of performance. Edge non etch is so common in this particular wafer, that the edge square feature is probably over-predictive for this type of defect. Basically, if there is a defect in an edge square, the algorithm is very likely to classify it as a edge non etch, which happens to be correct very often in this sample, but wouldn't necessarily be the case in other samples. This can be helped by adding additional features that check for the local spatial location and orientation of the defect, for instance, to make sure that the defect actually exists on the outer edge of the edge square before it is classified as an edge defect. This feature was actually included in my rule-based model which I discuss in my publication (currently in review), but I did not have time to code that into this project. 
+
+#### Edge Etch Delay
+The story is fairly similar with predictions of edge etch delay. The model technically performs very well on this sample, but I am aware of potential failure modes similar to the ones for edge non etch if the model were to be applied to future samples.
+
+#### Particle Voids
+Particle void classification scores perfectly on precision, meaning that of the devices that had been classified as having particle void defects, that prediction was correct 100% of the time. However, recall for particle voids is of sub-par performance, meaning that there were devices affected by particle defects that were not identified as being positive for this type of defect. When flags were raised, the flags were accurate, but many flags weren't raised where they should have been.
+
+#### Non-fill Voids and Etch Delay
+Performance for non-fill voids is decent, but not great. Similar is the case for etch delay.
+
+#### Scratches
+Performance for scratches is generally quite poor. This suggests that features offering predictive capabilities for scratches were not present.
+
+#### Edge Non-Fills
+Performance for edge non-fills was abysmal. This is most likely to be due to the fact that there was only 1 training example for this type of defect. The model simply was not given enough examples of this defect to form a sense of it. Precision is infinitely low, meaning that there were no positive identifications whatsoever, and recall is 0, meaning that there was at least one false negative. The first thing I would do improve the performance here would be to increase the number of training examples. Training examples were selected purely at random, and so it makes sense that such a rare defect type (only ~10 devices on the wafer have this defect) would get underrepresented. Some manual forcing of devices containing this defect would need to be forced into the training dataset, although one would need to be careful not to include too many of the few that exist, because then the model performance could not be trustably evaulated.
+
+
+## Conclusions and Future Work:
+The primary goal of this project wasn't to make a perfect classifier. Instead, I simply wanted to build a machine learning pipeline to attack this old problem from my research days. I kept the features and approach to training fairly simple. Nonetheless, the model shows a lot of potential, and for certain defect types demonstrates a high degree of predictive power. 
+
+Additional features could be added and the training set could be massaged a lot more to represent rarer defect types (like edge non-fills) to make the performance of this model better. However, I think the best way to continue learning is to move on to a new project instead of grinding for better model performance. So, I'm likely going to leave this project where it currently stands.
 
 ## References:
 [1] https://www.osapublishing.org/oe/abstract.cfm?uri=oe-26-23-30952
