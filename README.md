@@ -77,9 +77,12 @@ The images below show the classification predictions made by the model for 3 of 
 (left-to-right: particle voids, edge edge delay, and non-fill voids) (hover to see title). 
 
 <p float="left">
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_p_predict.jpg" width="30%" title="devices with classified particle defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ene_predict.jpg" width="30%" title="devices with classified edge non etch defects"/> 
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_p_predict.jpg"  width="30%" title="devices with classified particle defects"/>
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ed_predict.jpg"  width="30%" title="devices with classified etch delay defects"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_s_predict.jpg"  width="30%" title="devices with classified scratch defects"/>
 </p>
 
 ### Evaluation Scores:
