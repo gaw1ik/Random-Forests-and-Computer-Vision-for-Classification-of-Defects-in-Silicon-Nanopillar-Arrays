@@ -71,8 +71,10 @@ The machine learning is done using the random forest classifier from the Scikit-
 
 The training and evaulation sets are split 67% and 33% (respectively) at random. The classifier is fit to the training data and then used to make predictions on the evaluation dataset. The accuracies of those predictions for each defect type are then scored in terms of precision and recall.
 
-## Test Results Visualization:
-The images below show the classification predictions made by the model for 3 of the 7 defect types for the whole wafer. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
+## Results and Discussion
+
+### Test Results Visualization:
+The images below show the classification predictions made by the model for 6 of the 7 defect types for the whole wafer (edge non-fill classification not shown). The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
 
 (hover to see titles). 
 
@@ -99,13 +101,15 @@ The images below show the classification predictions made by the model for 3 of 
 
 ### Discussion of Performance:
 #### Edge Non Etch
-The approach handles a few of the defect categories fairly well. Scores in precision and recall for edge non-etch are perfect. This is likely to instill an overly optimistic level of performance. Edge non etch is so common in this particular wafer, that the edge square feature is probably over-predictive for this type of defect. Basically, if there is a defect in an edge square, the algorithm is very likely to classify it as a edge non etch, which happens to be correct very often in this sample, but wouldn't necessarily be the case in other samples. This can be helped by adding additional features that check for the local spatial location and orientation of the defect, for instance, to make sure that the defect actually exists on the outer edge of the edge square before it is classified as an edge defect. This feature was actually included in my rule-based model which I discuss in my publication (currently in review), but I did not have time to code that into this project. 
+The approach handles a few of the defect categories fairly well. Scores in precision and recall for edge non-etch are perfect. This is likely to instill an overly optimistic level of performance. Edge non etch is so common in this particular wafer, that the edge square feature is probably over-predictive for this type of defect. Basically, if there is a defect in an edge square, the algorithm is very likely to classify it as a edge non etch, which happens to be correct very often in this sample, but wouldn't necessarily be the case in other samples. 
+
+This can be helped by adding additional features that check for the local spatial location and orientation of the defect, for instance, to make sure that the defect actually exists on the outer edge of the edge square before it is classified as an edge defect. This feature was actually included in my rule-based model which I discuss in my publication (currently in review), but I did not have time to code that into this project. 
 
 #### Edge Etch Delay
 The story is fairly similar with predictions of edge etch delay. The model technically performs very well on this sample, but I am aware of potential failure modes similar to the ones for edge non etch if the model were to be applied to future samples.
 
 #### Particle Voids
-Particle void classification scores perfectly on precision, meaning that of the devices that had been classified as having particle void defects, that prediction was correct 100% of the time. However, recall for particle voids is of sub-par performance, meaning that there were devices affected by particle defects that were not identified as being positive for this type of defect. When flags were raised, the flags were accurate, but many flags weren't raised where they should have been.
+Particle void classification scores perfectly on precision, meaning that of the devices that had been classified as having particle void defects, that prediction was correct 100% of the time. However, recall for particle voids is of sub-par performance, meaning that there were devices affected by particle defects that were not identified as being positive for this type of defect. In other words: When flags were raised, the flags were accurate, but many flags weren't raised where they should have been.
 
 #### Non-fill Voids and Etch Delay
 Performance for non-fill voids is decent, but not great. Similar is the case for etch delay.
@@ -114,7 +118,9 @@ Performance for non-fill voids is decent, but not great. Similar is the case for
 Performance for scratches is generally quite poor. This suggests that features offering predictive capabilities for scratches were not present.
 
 #### Edge Non-Fills
-Performance for edge non-fills was abysmal. This is most likely to be due to the fact that there was only 1 training example for this type of defect. The model simply was not given enough examples of this defect to form a sense of it. Precision is infinitely low, meaning that there were no positive identifications whatsoever, and recall is 0, meaning that there was at least one false negative. The first thing I would do improve the performance here would be to increase the number of training examples. Training examples were selected purely at random, and so it makes sense that such a rare defect type (only ~10 devices on the wafer have this defect) would get underrepresented. Some manual forcing of devices containing this defect would need to be fed into the training dataset, although one would need to be careful not to include too many of the few that exist, because then the model performance could not be trustably evaulated.
+Performance for edge non-fills was abysmal. This is most likely to be due to the fact that there was only 1 training example for this type of defect. The model simply was not given enough examples of this defect to form a sense of it. Precision is infinitely low, meaning that there were no positive identifications whatsoever, and recall is 0, meaning that there was at least one false negative. 
+
+The first thing I would do improve the performance here would be to increase the number of training examples. Training examples were selected purely at random, and so it makes sense that such a rare defect type (only ~10 devices on the wafer have this defect) would get underrepresented. Some manual forcing of devices containing this defect would need to be fed into the training dataset, although one would need to be careful not to include too many of the few that exist, because then the model performance could not be trustably evaulated.
 
 
 ## Conclusions and Future Work:
