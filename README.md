@@ -101,7 +101,7 @@ Particle void classification scores perfectly on precision, meaning that of the 
 Performance for non-fill voids is decent, but not great. Similar is the case for etch delay.
 
 #### Scratches
-Performance for scratches is generally quite poor. This suggests that features offering predictive capabilities for scratches were not present.
+Performance for scratches is generally quite poor. This suggests that features offering predictive capabilities for scratches were not present. Probably the most distinguishing feature of the scratch defect is its long straight shape, so perhaps a quantification of this shape would provide good grounds for a feature.
 
 #### Edge Non-Fills
 Performance for edge non-fills was abysmal. This is most likely to be due to the fact that there was only 1 training example for this type of defect. The model simply was not given enough examples of this defect to form a sense of it. Precision is infinitely low, meaning that there were no positive identifications whatsoever, and recall is 0, meaning that there was at least one false negative. 
