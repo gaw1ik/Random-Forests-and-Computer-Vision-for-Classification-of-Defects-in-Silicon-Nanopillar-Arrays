@@ -7,14 +7,16 @@ During my time at UT Austin as a PhD student, I researched metrology solutions f
 
 Silicon nanopillar arrays were of particular interest to me, and much of my work was centered around them. They have many interesting applications, although what really got me hooked on them initially was the fact that they create these really amazing colors (see images below) due to a phenomenon called structural coloration (see my publication [reference 1] for more info). The colors arise because of the nanoscale size and shape of the pillars, and subtle changes in the geometry - changes on the order of a few nanometers, for instance - can completely change the color that they exhibit. As it turns out, this is an extremely useful characteristic from a metrology perspective, because characterizing this color can give insight into what's happening on the nanoscale, which otherwise can't be seen without the use of tools like electron micrscopes. Electron microscopes are extremely slow, and so being able to do an optical characterization that can image a full wafer *in seconds* is highly preferred. 
 
-<img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Wafers.jfif" width="500" title="Images of Silicon Nanopillar Array Wafers">
+<p align="center">
+    <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Wafers.jfif" width="500" title="Images of Silicon Nanopillar Array Wafers">
+</p>
 
 One of my primary focuses of my PhD was developing computer vision algorithms for detecting and classifying defects in these Si nanopillar arrays. I've actually submitted a paper on this work which shows how more-traditional image processing approaches can be used. This work was fairly rudimentary from a computer vision perspective, and wouldn't have been accepted to a computer vision journal, but in the context of metrology for silicon nanopillar manufacturing, the work offers insight at the interface of computer vision and the manfuacturing itself and demonstrates beginnings for more advanced algorithms. After I graduated, I wanted to re-explore this problem in the context of machine learning based computer vision, and thus this project was born.
 
 ## Description of the Problem:
 A wafer containing arrays of silicon nanopillars has been fabricated of which I recorded an RGB image of using an imaging system. If fabrication was 100% succesful, the wafer would look like what the left side of the image below shows. Note that the pattern is only intended for certain areas on the wafer which is why only some areas are green. Of course, the wafer I fabricated (shown on the right) is imperfect - actually, it is plagued by many defects. These defects need to be automatically detected and classified, and since they are readily visible in the image data, a computer vision approach makes sense. 
 
-<p float="left">
+<p align="center">
     <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Ideal Wafer.jpg" height="300" title="Rendering of an Ideal Wafer"/>
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/RGB.jpg" height="300" title="RGB Image"/>
 </p>
@@ -41,7 +43,7 @@ The main folder contains the code files, the saved classifier model, and four su
 ### Pre-Processing:
 The code "Pre-Processing.py" is used to pre-process the raw RGB data to prepare it for the subsequent computer vision tasks. First, the RGB image is masked to isolate the 1x1 mm square device regions on the wafer using the image mask "mask_sqrs.png". The RGB device images are then color-indexed (or color quantized) to reduce the size of the color space to just a handful of colors (red, black, si (silicon-colored), green, faded green). These colors are chosen ad hoc based on the fact that they are observed to be the most popular colors on the wafer and different colors are associated with different defect types. As mentioned, when the pillars are fabricated succesfully, they produce a particular shade of green. Thus, the color green corresponds to the so-called "yield" condition for the devices and is defined specifically as HSV colors meeting the conditions 60<H<115, S>140, V>140. The device images are converted to the HSV color space for this operation. The color black is then defined as V<75 and si (silicon) as V>75 & S<50. The remaining pixels are then quantized to either red or faded green depending on which color centroid they are closet to (in terms of euclidean distance) where red centroid = (120,119,55) and faded green centroid = (50,90,50).
  
-<p float="left">
+<p align="center">
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/mask_sqrs.png" width="30%" title="Squares Mask Image"/>
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Images/RGBi.png"  width="30%" title="Indexed RGB Image"/>
 </p>
@@ -59,7 +61,9 @@ Various features are calculated for each defective device to be used as input fe
 
 This forms a new DataFrame (Data\Devices_Dfct_Features) as shown below.
 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Devices_Dfct_Features screenshot.JPG"  width="800" title="Screenshot of Devices_Info DataFrame">
+<p align="center">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/Devices_Dfct_Features screenshot.JPG"  width="800" title="Screenshot of Devices_Info       DataFrame">
+</p>
 
 ### Labelling the Training Data:
 200 of the defective devices are randomly sampled forming Data\Devices_Training_Info and Data\Devices_Training_Features. Next the training examples must be labeled which is done with the script "labeller_updatable.py". This script (at least) works in the IDE Spyder by displaying the image of a device from the training set one at a time and asking for input as to what defects are present in the device. The input options are abbreviations I came up with for the various defect types ('p','nf','ed','eed','ene','enf','s'). I would enter a comma-separated list of these abbreviations for each device. The script allows for 'quit' to be entered as well, which allowed me to end the program and take a break from the rather time-consuming labeling process. It would save the current progress and I could then come back later and continue labelling. Hence, the *updatable* aspect of the labeller. The label lists are then automatically parsed and transformed into a sparse boolean array (one-hot encoding).
@@ -113,7 +117,7 @@ The images below show the classification predictions made by the model for 6 of 
 
 (hover to see titles). 
 
-<p float="left">
+<p align="center">
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ene_predict.jpg" width="30%" title="devices with classified edge non etch defects"/> 
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
   <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_p_predict.jpg"  width="30%" title="devices with classified particle defects"/>
