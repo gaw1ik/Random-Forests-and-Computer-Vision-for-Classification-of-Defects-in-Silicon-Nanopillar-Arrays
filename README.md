@@ -109,7 +109,7 @@ Performance for edge non-fills was abysmal. This is most likely to be due to the
 The first thing I would do improve the performance here would be to increase the number of training examples. Training examples were selected purely at random, and so it makes sense that such a rare defect type (only ~10 devices on the wafer have this defect) would get underrepresented. Some manual forcing of devices containing this defect would need to be fed into the training dataset, although one would need to be careful not to include too many of the few that exist, because then the model performance could not be trustably evaulated.
 
 ### Test Results Visualization:
-The images below show the classification predictions made by the model for 6 of the 7 defect types for the whole wafer (edge non-fill classification not shown). The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
+The images below show the classification predictions made by the model for 6 of the 7 defect types *for the whole wafer* (not just the training/eval set). Note that edge non-fill classification is not shown due to its low performance. The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
 
 (hover to see titles). 
 
