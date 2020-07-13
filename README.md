@@ -73,20 +73,6 @@ The training and evaulation sets are split 67% and 33% (respectively) at random.
 
 ## Results and Discussion
 
-### Test Results Visualization:
-The images below show the classification predictions made by the model for 6 of the 7 defect types for the whole wafer (edge non-fill classification not shown). The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
-
-(hover to see titles). 
-
-<p float="left">
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ene_predict.jpg" width="30%" title="devices with classified edge non etch defects"/> 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_p_predict.jpg"  width="30%" title="devices with classified particle defects"/>
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ed_predict.jpg"  width="30%" title="devices with classified etch delay defects"/>
-  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_s_predict.jpg"  width="30%" title="devices with classified scratch defects"/>
-</p>
-
 ### Evaluation Scores:
 
 |   Defect Type   | # of Training Examples | Precision | Recall |
@@ -101,7 +87,7 @@ The images below show the classification predictions made by the model for 6 of 
 
 ### Discussion of Performance:
 #### Edge Non Etch
-The approach handles a few of the defect categories fairly well. Scores in precision and recall for edge non-etch are perfect. This is likely to instill an overly optimistic level of performance. Edge non etch is so common in this particular wafer, that the edge square feature is probably over-predictive for this type of defect. Basically, if there is a defect in an edge square, the algorithm is very likely to classify it as a edge non etch, which happens to be correct very often in this sample, but wouldn't necessarily be the case in other samples. 
+The approach handles a few of the defect categories fairly well. Scores in precision and recall for edge non-etch are perfect. This is likely to instill an overly optimistic level of performance. Edge non etch is so common in this particular wafer, that the edge square feature is probably over-predictive for this type of defect. Basically, if there is a defect in an edge square, the algorithm is very likely to classify it as a edge non etch, which happens to be correct very often in this wafer, but wouldn't necessarily be the case in other wafers or even in parts of this wafer that weren't included in the training data. 
 
 This can be helped by adding additional features that check for the local spatial location and orientation of the defect, for instance, to make sure that the defect actually exists on the outer edge of the edge square before it is classified as an edge defect. This feature was actually included in my rule-based model which I discuss in my publication (currently in review), but I did not have time to code that into this project. 
 
@@ -122,6 +108,19 @@ Performance for edge non-fills was abysmal. This is most likely to be due to the
 
 The first thing I would do improve the performance here would be to increase the number of training examples. Training examples were selected purely at random, and so it makes sense that such a rare defect type (only ~10 devices on the wafer have this defect) would get underrepresented. Some manual forcing of devices containing this defect would need to be fed into the training dataset, although one would need to be careful not to include too many of the few that exist, because then the model performance could not be trustably evaulated.
 
+### Test Results Visualization:
+The images below show the classification predictions made by the model for 6 of the 7 defect types for the whole wafer (edge non-fill classification not shown). The results are visualized by gray'ing out the entire image of the wafer except for the device regions in which that particular defect was detected, which are given their normal RGB values. 
+
+(hover to see titles). 
+
+<p float="left">
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ene_predict.jpg" width="30%" title="devices with classified edge non etch defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_eed_predict.jpg" width="30%" title="devices with classified edge etch delay defects"/> 
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_p_predict.jpg"  width="30%" title="devices with classified particle defects"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_nf_predict.jpg"  width="30%" title="devices with classified non-fill defects"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_ed_predict.jpg"  width="30%" title="devices with classified etch delay defects"/>
+  <img src="https://github.com/gaw1ik/nanopillar-computer-vision/blob/master/Figures/classification_image_s_predict.jpg"  width="30%" title="devices with classified scratch defects"/>
+</p>
 
 ## Conclusions and Future Work:
 The primary goal of this project wasn't to make a perfect classifier. Instead, I simply wanted to build a machine learning pipeline to attack this old problem from my research days. I kept the features and approach to training fairly simple. Nonetheless, the model shows a lot of potential, and for certain defect types demonstrates a high degree of predictive power. 
